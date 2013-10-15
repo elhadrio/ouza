@@ -1,6 +1,7 @@
 package ouza.project.view.component.menubar;
 
-import java.awt.Toolkit;
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 
@@ -154,7 +155,9 @@ public class MenuBar {
 	private void saveItemCreator() {
 		final JMenuItem saveMI = new JMenuItem("  Save");
 		saveMI.setIcon(IconLaoder.SAVE_ICON);
-
+		saveMI.setMnemonic('S');
+		saveMI.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S,
+				InputEvent.CTRL_MASK));
 		saveMI.addActionListener(OuZaAction.save());
 		fileMenu.add(saveMI);
 
@@ -179,6 +182,9 @@ public class MenuBar {
 		final JMenuItem copyMI = new JMenuItem("  Copy	");
 		copyMI.setIcon(IconLaoder.COPY_ICON);
 
+		copyMI.setMnemonic('C');
+		copyMI.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C,
+				InputEvent.CTRL_MASK));
 		copyMI.addActionListener(OuZaAction.copy());
 
 		editMenu.add(copyMI);
@@ -188,6 +194,10 @@ public class MenuBar {
 		final JMenuItem cutMI = new JMenuItem("  Cut	");
 		cutMI.setIcon(IconLaoder.CUT_ICON);
 
+		cutMI.setMnemonic('X');
+		cutMI.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X,
+				InputEvent.CTRL_MASK));
+
 		cutMI.addActionListener(OuZaAction.cut());
 		editMenu.add(cutMI);
 	}
@@ -195,7 +205,9 @@ public class MenuBar {
 	private void pasteItemCreator() {
 		final JMenuItem pasteMI = new JMenuItem("  Paste	");
 		pasteMI.setIcon(IconLaoder.PASTE_ICON);
-
+		pasteMI.setMnemonic('V');
+		pasteMI.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_V,
+				InputEvent.CTRL_MASK));
 		pasteMI.addActionListener(OuZaAction.paste());
 		editMenu.add(pasteMI);
 	}
@@ -203,7 +215,9 @@ public class MenuBar {
 	private void selectAllItemCreator() {
 		final JMenuItem selectAllMI = new JMenuItem("  Sellect All	 ");
 		selectAllMI.setIcon(IconLaoder.SELLECT_ALL_ICON);
-
+		selectAllMI.setMnemonic('A');
+		selectAllMI.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A,
+				InputEvent.CTRL_MASK));
 		selectAllMI.addActionListener(OuZaAction.selectAll());
 		editMenu.add(selectAllMI);
 
@@ -213,8 +227,10 @@ public class MenuBar {
 
 		final JMenuItem undoMI = new JMenuItem("  Undo	");
 		undoMI.setIcon(IconLaoder.UNDO_ICON);
-		
-		// OuZaAction.undoAction(undoMI);
+		undoMI.setMnemonic('Z');
+		undoMI.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Z,
+				InputEvent.CTRL_MASK));
+		// OuZaAction.undoAction();
 		editMenu.add(undoMI);
 
 	}
@@ -222,15 +238,20 @@ public class MenuBar {
 	private void redoItemCreator() {
 		final JMenuItem redoMI = new JMenuItem("  Redo	");
 		redoMI.setIcon(IconLaoder.REDO_ICON);
-		redoMI.setAccelerator(KeyStroke.getKeyStroke('y', Toolkit
-				.getDefaultToolkit().getMenuShortcutKeyMask(), false));
-		// OuZaAction.redoAction(redoMI);
+
+		redoMI.setMnemonic('Y');
+		redoMI.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Y,
+				InputEvent.CTRL_MASK));
+		// OuZaAction.redoAction();
 		editMenu.add(redoMI);
 	}
 
 	private void runItemCreator() {
 		final JMenuItem runMI = new JMenuItem("Run");
 		runMI.addActionListener(OuZaAction.run());
+
+		runMI.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F11,
+				InputEvent.CTRL_MASK));
 		runMenu.add(runMI);
 
 	}

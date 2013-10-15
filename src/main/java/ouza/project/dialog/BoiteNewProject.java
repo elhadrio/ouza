@@ -105,21 +105,26 @@ public class BoiteNewProject extends JDialog implements ActionListener {
 
 	public final void errorMessage() {
 		headerPanel.remove(1);
-		if (isProjectNameVadlide(projectNameTF.getText())) {
 
-			errorLabel = new JLabel();
-			finishButton.setEnabled(true);
+		errorLabel = new JLabel();
+		finishButton.setEnabled(true);
 
-		} else {
-			errorLabel = new JLabel(IconLaoder.ERROR_ICON);
-			errorLabel.setText("   Type textFeild_Project_Name is invalid ");
-			finishButton.setEnabled(false);
+		if (!isProjectNameVadlide(projectNameTF.getText())) {
+			errorLabelCreator("		Project Name Invalid ");
 
+		} else if (isProjectNameExist(projectNameTF.getText())) {
+			errorLabelCreator("		Project Already exists ");
 		}
 
 		headerPanel.setLayout(new BorderLayout());
 		headerPanel.add(errorLabel, BorderLayout.WEST);
 		headerPanel.updateUI();
+	}
+
+	private void errorLabelCreator(String errorMessage) {
+		errorLabel = new JLabel(IconLaoder.ERROR_ICON);
+		errorLabel.setText(errorMessage);
+		finishButton.setEnabled(false);
 	}
 
 	public final JPanel headerPanelCreator() {
@@ -181,6 +186,12 @@ public class BoiteNewProject extends JDialog implements ActionListener {
 
 			dispose();
 		}
+
+	}
+
+	public static boolean isProjectNameExist(final String entree) {
+
+		return new File(CurrentFile.getWorkSpacePath() + entree).exists();
 
 	}
 

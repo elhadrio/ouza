@@ -7,16 +7,13 @@ import javax.swing.JLabel;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultTreeCellRenderer;
 
+import ouza.project.modele.CurrentFile;
 import ouza.project.tools.ChargeurRessource;
+import ouza.project.tools.IconLaoder;
 
 public class FileRenderer extends DefaultTreeCellRenderer {
 
 	private static final long serialVersionUID = 1L;
-
-	private static ChargeurRessource chargeur = new ChargeurRessource(
-			"/ouza/project/icon/");
-
-	
 
 	public final Component getTreeCellRendererComponent(final JTree tree,
 			final Object value, final boolean selected, final boolean expanded,
@@ -34,25 +31,26 @@ public class FileRenderer extends DefaultTreeCellRenderer {
 	}
 
 	private void iconFileSelector(final JLabel label, final File file) {
+		File work = CurrentFile.getWorkSpaceFile();
 		if (file.isFile()) {
-			((DefaultTreeCellRenderer) label).setIcon(chargeur
-					.getIcon("crystal_java.png"));
+			/*
+			 * ((DefaultTreeCellRenderer) label).setIcon(chargeur
+			 * .getIcon("crystal_java.png"));
+			 */
 
 		}
 
 		if (file.getName().equals("src")) {
-			((DefaultTreeCellRenderer) label).setIcon(chargeur
-					.getIcon("add_as_source_folder.gif"));
+			((DefaultTreeCellRenderer) label).setIcon(IconLaoder.SOURCE_ICON);
 		}
 
 		if (file.getParentFile().getName().equals("src")) {
-			((DefaultTreeCellRenderer) label).setIcon(chargeur
-					.getIcon("package_obj.gif"));
+			// ((DefaultTreeCellRenderer)
+			// label).setIcon(IconLaoder.SOURCE_ICON);
 		}
-		if (file.getParentFile().getName().equals("myspace")) {
+		if (file.getParentFile().equals(work)) {
 
-			((DefaultTreeCellRenderer) label).setIcon(chargeur
-					.getIcon("Fada2iicone.JPG"));
+			((DefaultTreeCellRenderer) label).setIcon(IconLaoder.PROJECT_ICON);
 		}
 	}
 }
