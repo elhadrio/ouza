@@ -278,7 +278,7 @@ public final class OuZaAction {
 			@Override
 			public void actionPerformed(final ActionEvent event) {
 
-				newClasseOrEnumOrInterface("Class", "newclass_wiz.gif", true);
+				newClasseOrEnumOrInterface("Class",  true);
 
 			}
 
@@ -291,7 +291,7 @@ public final class OuZaAction {
 
 			@Override
 			public void actionPerformed(final ActionEvent event) {
-				newClasseOrEnumOrInterface("Interface", "newint_wiz.gif", false);
+				newClasseOrEnumOrInterface("Interface", false);
 			}
 
 		};
@@ -303,7 +303,7 @@ public final class OuZaAction {
 
 			@Override
 			public void actionPerformed(final ActionEvent event) {
-				newClasseOrEnumOrInterface("Enum", "newenum_wiz.gif", false);
+				newClasseOrEnumOrInterface("Enum", false);
 			}
 
 		};
@@ -311,8 +311,8 @@ public final class OuZaAction {
 	}
 
 	private static void newClasseOrEnumOrInterface(final String name,
-			final String icon, final boolean isClass) {
-		final BoiteNewClass newClass = new BoiteNewClass(name, icon);
+			 final boolean isClass) {
+		final BoiteNewClass newClass = new BoiteNewClass(name);
 
 		if (CurrentFile.getpMS() != null) {
 

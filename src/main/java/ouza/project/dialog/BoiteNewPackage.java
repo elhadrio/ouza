@@ -87,22 +87,26 @@ public class BoiteNewPackage extends JDialog implements ActionListener {
 
 	public final void errorMessage() {
 		headerPanel.remove(1);
-		if (isPackagetNameVadlide(packageNameTF.getText())) {
 
-			errorLabel = new JLabel();
-			finishButton.setEnabled(true);
+		errorLabel = new JLabel();
+		finishButton.setEnabled(true);
 
-		} else {
+		if (!isPackagetNameVadlide(packageNameTF.getText())) {
+			errorLabelCreator("		Package  Name Invalid ");
 
-			errorLabel = new JLabel(IconLaoder.ERROR_ICON);
-			errorLabel.setText("   Type name is invalid ");
-			finishButton.setEnabled(false);
-
+		} else if (isPackageNameExist(packageNameTF.getText())) {
+			errorLabelCreator("		Package Already exists ");
 		}
 
 		headerPanel.setLayout(new BorderLayout());
 		headerPanel.add(errorLabel, BorderLayout.WEST);
 		headerPanel.updateUI();
+	}
+
+	private void errorLabelCreator(String errorMessage) {
+		errorLabel = new JLabel(IconLaoder.ERROR_ICON);
+		errorLabel.setText(errorMessage);
+		finishButton.setEnabled(false);
 	}
 
 	public final JPanel headerPanelCreator() {
@@ -238,11 +242,19 @@ public class BoiteNewPackage extends JDialog implements ActionListener {
 
 		return matcher.matches();
 	}
-	
-	public final void  remplireFormulaire(final String projectName, final String packageName) {
+
+	public static boolean isPackageNameExist(final String entree) {
+
+		return new File(CurrentFile.getProjectPath() + "//src//" + entree)
+				.exists();
+
+	}
+
+	public final void remplireFormulaire(final String projectName,
+			final String packageName) {
 		projectNameTF.setText(projectName);
 		packageNameTF.setText(packageName);
-		
+
 	}
 
 	public final String getProjectName() {

@@ -79,10 +79,10 @@ public class BoiteNewClass extends JDialog implements ActionListener {
 
 	private static final String SOURCE_FOLD = "Source Folder ";
 
-	public BoiteNewClass(final String title, final String iconName) {
+	public BoiteNewClass(final String title) {
 		super(Main.getWindow(), "New Java " + title, true);
 
-		this.bodyCreator(iconName);
+		this.bodyCreator(title);
 		this.windowState();
 
 	}
@@ -116,14 +116,7 @@ public class BoiteNewClass extends JDialog implements ActionListener {
 		headerPanel.setLayout(new GridLayout(GRID_ROWS_2, GRID_COLS_1,
 				GRID_GAP_5, GRID_GAP_5));
 
-		ImageIcon icon = null;
-		if (iconName.equals("class")) {
-			icon = IconLaoder.CLASS_ICON;
-		} else if (iconName.equals("enum")) {
-			icon = IconLaoder.ENUM_ICON;
-		} else if (iconName.equals("interface")) {
-			icon = IconLaoder.INTERFACE_ICON;
-		}
+		ImageIcon icon = iconSelector(iconName);
 		final JLabel classIcon = new JLabel(icon);
 		headerPanel.add(classIcon);
 		headerPanel.setPreferredSize(new Dimension(WINDOW_WIDTH_500,
@@ -131,6 +124,18 @@ public class BoiteNewClass extends JDialog implements ActionListener {
 		headerPanel.setBackground(Color.WHITE);
 		headerPanel.add(headerLabel, BorderLayout.WEST);
 		return headerPanel;
+	}
+
+	private ImageIcon iconSelector(final String iconName) {
+		ImageIcon icon = null;
+		if (iconName.equals("Class")) {
+			icon = IconLaoder.CLASS_ICON;
+		} else if (iconName.equals("Enum")) {
+			icon = IconLaoder.ENUM_ICON;
+		} else if (iconName.equals("Interface")) {
+			icon = IconLaoder.INTERFACE_ICON;
+		}
+		return icon;
 	}
 
 	public final JPanel formulairePanelCreator() {
@@ -223,29 +228,35 @@ public class BoiteNewClass extends JDialog implements ActionListener {
 	public final void errorMessage() {
 		headerPanel.remove(1);
 
-		if (BoiteNewClass.isClassNameVadlide(classNameTF.getText())) {
+		if (isClassExist(classNameTF.getText())) {
+			headerLabelCreator(IconLaoder.ERROR_ICON, " Class Already Exist");
+			finishButton.setEnabled(false);
+		} else if (!isClassNameVadlide(classNameTF.getText())) {
 
-			if (isStartwithUpperCase(classNameTF.getText())) {
-
-				headerLabel = new JLabel();
-
-			} else {
-				headerLabel = new JLabel(IconLaoder.WARNING_ICON);
-				headerLabel.setText(" Type classNameTextField is discouraged");
-
-			}
+			headerLabelCreator(IconLaoder.ERROR_ICON, "Class Name Invalid");
+			finishButton.setEnabled(false);
 
 		} else {
 
-			headerLabel = new JLabel(IconLaoder.ERROR_ICON);
-			headerLabel.setText("Type classNameTextField is invalid");
+			if (!isStartwithUpperCase(classNameTF.getText())) {
+				headerLabelCreator(IconLaoder.WARNING_ICON,
+						"Class Name is discouraged");
+			} else {
+				headerLabel = new JLabel();
+				finishButton.setEnabled(true);
+			}
 		}
 
 		headerPanel.setLayout(new BorderLayout());
 		headerPanel.add(headerLabel, BorderLayout.WEST);
 
 		headerLabel.updateUI();
-		headerPanel.updateUI();
+		headerLabel.updateUI();
+	}
+
+	private void headerLabelCreator(ImageIcon icon, String errorMessage) {
+		headerLabel = new JLabel(icon);
+		headerLabel.setText(errorMessage);
 	}
 
 	public final void classeNameListenner(final JTextField nameProject) {
@@ -440,6 +451,13 @@ public class BoiteNewClass extends JDialog implements ActionListener {
 
 	public static void setSelectionMode(final boolean selection) {
 		BoiteNewClass.selectionMode = selection;
+	}
+
+	public final boolean isClassExist(String className) {
+
+		return new File(CurrentFile.getProjectPath() + "//src/"
+				+ packageNameTF.getText().replace(".", "//") + "//" + className
+				+ ".java").exists();
 	}
 
 	public final boolean isStartwithUpperCase(final String entree) {
