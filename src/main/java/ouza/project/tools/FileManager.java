@@ -73,8 +73,8 @@ public final class FileManager {
 			reader = new BufferedReader(new FileReader(path));
 			String ligne;
 			buf = new StringBuffer();
-
-			while ((ligne = reader.readLine()) != null) {
+			ligne = reader.readLine();
+			while (ligne  != null) {
 				buf.append(ligne + (char) '\n');
 
 			}

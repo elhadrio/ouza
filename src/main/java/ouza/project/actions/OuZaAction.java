@@ -45,7 +45,7 @@ public final class OuZaAction {
 
 				if (!EditorOngletCreator.isSelectectedTabNull()) {
 					selectedOnglet.getEditorpane().copy();
-					
+
 				}
 
 			}
@@ -127,12 +127,12 @@ public final class OuZaAction {
 			@Override
 			public void actionPerformed(final ActionEvent event) {
 
-				if (CurrentFile.getpMS() != null) {
+				if (CurrentFile.getpMS() != null
+						&& !EditorOngletCreator.isSelectectedTabNull()) {
 
-					if (!EditorOngletCreator.isSelectectedTabNull()) {
-						new ConsoleManager().runThreadCreator(CurrentFile
-								.getProjectName());
-					}
+					new ConsoleManager().runThreadCreator(CurrentFile
+							.getProjectName());
+
 				}
 
 			}
@@ -278,7 +278,7 @@ public final class OuZaAction {
 			@Override
 			public void actionPerformed(final ActionEvent event) {
 
-				newClasseOrEnumOrInterface("Class",  true);
+				newClasseOrEnumOrInterface("Class", true);
 
 			}
 
@@ -311,7 +311,7 @@ public final class OuZaAction {
 	}
 
 	private static void newClasseOrEnumOrInterface(final String name,
-			 final boolean isClass) {
+			final boolean isClass) {
 		final BoiteNewClass newClass = new BoiteNewClass(name);
 
 		if (CurrentFile.getpMS() != null) {
@@ -336,7 +336,7 @@ public final class OuZaAction {
 
 			@Override
 			public void actionPerformed(final ActionEvent event) {
-				BoiteNewPackage newPackage = new BoiteNewPackage();
+				final BoiteNewPackage newPackage = new BoiteNewPackage();
 				if (CurrentFile.getpMS() != null) {
 
 					newPackage.remplireFormulaire(CurrentFile.getProjectName(),

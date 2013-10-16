@@ -15,6 +15,7 @@ public class ConsoleOngletCreator {
 	private static final int NUMBER_80 = 80;
 
 	private static final JTabbedPane TABBED = new JTabbedPane();
+
 	private transient ConsoleOngletPanel consoleOngletPnl;
 
 	public ConsoleOngletCreator() {
@@ -29,14 +30,14 @@ public class ConsoleOngletCreator {
 	public final void addOnglet(final String title) {
 
 		final JPanel headerPanel = headerOfOngletPanel(title);
+
+		TABBED.addTab("", consoleOngletPnl);
+		TABBED.setSelectedComponent(consoleOngletPnl);
 		TABBED.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
 
-		TABBED.addTab(title, consoleOngletPnl);
+		// final int index = TABBED.indexOfComponent(consoleOngletPnl);
 
-		final int index = TABBED.indexOfComponent(consoleOngletPnl);
-
-		TABBED.setSelectedComponent(consoleOngletPnl);
-		TABBED.setTabComponentAt(index, headerPanel);
+		TABBED.setTabComponentAt(TABBED.getTabCount() - 1, headerPanel);
 
 	}
 

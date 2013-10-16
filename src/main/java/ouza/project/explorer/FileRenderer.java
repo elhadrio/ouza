@@ -8,7 +8,6 @@ import javax.swing.JTree;
 import javax.swing.tree.DefaultTreeCellRenderer;
 
 import ouza.project.modele.CurrentFile;
-import ouza.project.tools.ChargeurRessource;
 import ouza.project.tools.IconLaoder;
 
 public class FileRenderer extends DefaultTreeCellRenderer {
@@ -31,26 +30,15 @@ public class FileRenderer extends DefaultTreeCellRenderer {
 	}
 
 	private void iconFileSelector(final JLabel label, final File file) {
-		File work = CurrentFile.getWorkSpaceFile();
-		if (file.isFile()) {
-			/*
-			 * ((DefaultTreeCellRenderer) label).setIcon(chargeur
-			 * .getIcon("crystal_java.png"));
-			 */
-
-		}
+		final File work = CurrentFile.getWorkSpaceFile();
 
 		if (file.getName().equals("src")) {
 			((DefaultTreeCellRenderer) label).setIcon(IconLaoder.SOURCE_ICON);
-		}
-
-		if (file.getParentFile().getName().equals("src")) {
-			// ((DefaultTreeCellRenderer)
-			// label).setIcon(IconLaoder.SOURCE_ICON);
-		}
-		if (file.getParentFile().equals(work)) {
+		} else if (file.getParentFile().equals(work)) {
 
 			((DefaultTreeCellRenderer) label).setIcon(IconLaoder.PROJECT_ICON);
+		} else if (file.isDirectory()) {
+			((DefaultTreeCellRenderer) label).setIcon(IconLaoder.PACKAGE_ICON);
 		}
 	}
 }

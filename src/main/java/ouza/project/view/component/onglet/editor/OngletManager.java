@@ -17,7 +17,7 @@ public final class OngletManager {
 	public static void saveNotice(final int index) {
 		String title;
 
-		EditorOnglet selectedOnglet = (EditorOnglet) EditorOngletCreator
+		final EditorOnglet selectedOnglet = (EditorOnglet) EditorOngletCreator
 				.getTabbedpane().getComponentAt(index);
 
 		final JPanel pan = (JPanel) EditorOngletCreator.getTabbedpane()
@@ -32,7 +32,7 @@ public final class OngletManager {
 	public static void saveOnglet(final int index) {
 
 		saveNotice(index);
-		EditorOnglet selectedOnglet = (EditorOnglet) EditorOngletCreator
+		final EditorOnglet selectedOnglet = (EditorOnglet) EditorOngletCreator
 				.getTabbedpane().getComponentAt(index);
 
 		FileManager.saveFile(selectedOnglet.getProjectModeleSelector()
@@ -80,7 +80,7 @@ public final class OngletManager {
 
 		for (int i = 0; i < tabCount; i++) {
 
-			EditorOnglet currentOnglet = (EditorOnglet) EditorOngletCreator
+			final EditorOnglet currentOnglet = (EditorOnglet) EditorOngletCreator
 					.getTabbedpane().getComponentAt(i);
 
 			OngletManager.saveOnglet(i);

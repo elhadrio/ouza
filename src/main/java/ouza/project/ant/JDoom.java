@@ -13,6 +13,8 @@ import org.jdom2.input.SAXBuilder;
 import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
 
+import ouza.project.logger.OuZaLogger;
+
 public class JDoom {
 
 	private static Element project;
@@ -41,9 +43,9 @@ public class JDoom {
 		try {
 			document = sxb.build(file);
 		} catch (JDOMException e) {
-			e.printStackTrace();
+			OuZaLogger.LOGGER.error(e);
 		} catch (IOException e) {
-			e.printStackTrace();
+			OuZaLogger.LOGGER.error(e);
 		}
 		project = document.getRootElement();
 	}
@@ -52,10 +54,10 @@ public class JDoom {
 			final String projectname) {
 		if ((project instanceof Element)) {
 			final List<Element> listtarget = project.getChildren("target");
-			Iterator<Element> iterator = listtarget.iterator();
+			final Iterator<Element> iterator = listtarget.iterator();
 
 			while (iterator.hasNext()) {
-				Element courant = (Element) iterator.next();
+				final Element courant = (Element) iterator.next();
 				if (courant.getChild("java") != null) {
 					courant.getChild("java").getAttribute("classname")
 							.setValue(classname);
@@ -75,11 +77,11 @@ public class JDoom {
 				.setValue(idpath + ".classpath");
 
 		if ((project instanceof Element)) {
-			List<Element> listtarget = project.getChildren("target");
-			Iterator<Element> i = listtarget.iterator();
+			final List<Element> listtarget = project.getChildren("target");
+			final Iterator<Element> i = listtarget.iterator();
 
 			while (i.hasNext()) {
-				Element courant = (Element) i.next();
+				final Element courant = (Element) i.next();
 				if (courant.getChild("javac") != null) {
 
 					courant.getChild("javac").getChild("classpath")
@@ -94,7 +96,7 @@ public class JDoom {
 	public final void addJar(final String jarUrl) {
 		if ((project instanceof Element)) {
 
-			Element pathelement = new Element("pathelement");
+			final Element pathelement = new Element("pathelement");
 			pathelement.setAttribute("location", jarUrl);
 			project.getChild("path").addContent(pathelement);
 		}

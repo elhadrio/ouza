@@ -20,7 +20,9 @@ public class EditorOngletCreator extends JPanel implements ChangeListener {
 	private static final long serialVersionUID = 1L;
 
 	private final transient EditorOnglet editorOngletPanel;
+	
 	private transient JLabel titleLabel;
+	
 	private static final JTabbedPane TABBEDPANE = new JTabbedPane();
 
 	public EditorOngletCreator(final String text) {

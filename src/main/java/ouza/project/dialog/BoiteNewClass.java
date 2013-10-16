@@ -116,7 +116,7 @@ public class BoiteNewClass extends JDialog implements ActionListener {
 		headerPanel.setLayout(new GridLayout(GRID_ROWS_2, GRID_COLS_1,
 				GRID_GAP_5, GRID_GAP_5));
 
-		ImageIcon icon = iconSelector(iconName);
+		final ImageIcon icon = iconSelector(iconName);
 		final JLabel classIcon = new JLabel(icon);
 		headerPanel.add(classIcon);
 		headerPanel.setPreferredSize(new Dimension(WINDOW_WIDTH_500,
@@ -128,11 +128,11 @@ public class BoiteNewClass extends JDialog implements ActionListener {
 
 	private ImageIcon iconSelector(final String iconName) {
 		ImageIcon icon = null;
-		if (iconName.equals("Class")) {
+		if ("Class".equals(iconName)) {
 			icon = IconLaoder.CLASS_ICON;
-		} else if (iconName.equals("Enum")) {
+		} else if ("Enum".equals(iconName)) {
 			icon = IconLaoder.ENUM_ICON;
-		} else if (iconName.equals("Interface")) {
+		} else if ("Interface".equals(iconName)) {
 			icon = IconLaoder.INTERFACE_ICON;
 		}
 		return icon;
@@ -254,7 +254,8 @@ public class BoiteNewClass extends JDialog implements ActionListener {
 		headerLabel.updateUI();
 	}
 
-	private void headerLabelCreator(ImageIcon icon, String errorMessage) {
+	private void headerLabelCreator(final ImageIcon icon,
+			final String errorMessage) {
 		headerLabel = new JLabel(icon);
 		headerLabel.setText(errorMessage);
 	}
@@ -360,7 +361,7 @@ public class BoiteNewClass extends JDialog implements ActionListener {
 	}
 
 	private void updatePMS(final EditorOnglet editeur) {
-		ProjectModeleSelector pMS = new ProjectModeleSelector(
+		final ProjectModeleSelector pMS = new ProjectModeleSelector(
 				projectNameTF.getText(), packageNameTF.getText(),
 				classNameTF.getText());
 		pMS.setProjectPath(CurrentFile.getProjectPath());
@@ -453,7 +454,7 @@ public class BoiteNewClass extends JDialog implements ActionListener {
 		BoiteNewClass.selectionMode = selection;
 	}
 
-	public final boolean isClassExist(String className) {
+	public final boolean isClassExist(final String className) {
 
 		return new File(CurrentFile.getProjectPath() + "//src/"
 				+ packageNameTF.getText().replace(".", "//") + "//" + className

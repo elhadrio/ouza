@@ -103,7 +103,7 @@ public class BoiteNewPackage extends JDialog implements ActionListener {
 		headerPanel.updateUI();
 	}
 
-	private void errorLabelCreator(String errorMessage) {
+	private void errorLabelCreator(final String errorMessage) {
 		errorLabel = new JLabel(IconLaoder.ERROR_ICON);
 		errorLabel.setText(errorMessage);
 		finishButton.setEnabled(false);
