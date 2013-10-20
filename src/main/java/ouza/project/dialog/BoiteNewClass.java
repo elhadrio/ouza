@@ -241,6 +241,8 @@ public class BoiteNewClass extends JDialog implements ActionListener {
 			if (!isStartwithUpperCase(classNameTF.getText())) {
 				headerLabelCreator(IconLaoder.WARNING_ICON,
 						"Class Name is discouraged");
+				finishButton.setEnabled(true);
+
 			} else {
 				headerLabel = new JLabel();
 				finishButton.setEnabled(true);
