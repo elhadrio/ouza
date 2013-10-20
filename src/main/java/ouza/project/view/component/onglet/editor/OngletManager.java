@@ -32,6 +32,7 @@ public final class OngletManager {
 	public static void saveOnglet(final int index) {
 
 		saveNotice(index);
+
 		final EditorOnglet selectedOnglet = (EditorOnglet) EditorOngletCreator
 				.getTabbedpane().getComponentAt(index);
 

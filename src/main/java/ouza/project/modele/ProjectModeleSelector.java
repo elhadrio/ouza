@@ -16,6 +16,12 @@ public class ProjectModeleSelector {
 
 	public ProjectModeleSelector(final String project, final String pack,
 			final String classe) {
+		simpleJavaProject = new SimpleJavaProject(project, pack, classe);
+
+		projectPath = simpleJavaProject.getProjectPath();
+		packagePath = simpleJavaProject.getPackagePath();
+		classPath = simpleJavaProject.getClassPath();
+
 		this.projectName = project;
 		this.packageName = pack;
 		this.className = classe;

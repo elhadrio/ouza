@@ -12,9 +12,19 @@ public class SimpleJavaProject {
 
 	private String packagePath = "";
 	private String projectPath = "";
+	private String classPath = "";
 
 	public SimpleJavaProject(final File fil) {
 		this.file = fil;
+	}
+
+	public SimpleJavaProject(final String project, final String pack,
+			final String classe) {
+
+		projectPath = CurrentFile.getWorkSpacePath() + project;
+		packagePath = projectPath + "//src//" + pack;
+		setClassPath(packagePath.replace(".", "//") + "//" + classe+".java");
+
 	}
 
 	public final String findOutProjectNameAndPath() {
@@ -106,7 +116,14 @@ public class SimpleJavaProject {
 		return false;
 
 	}
-
+	
+	public void createProject(){
+		new File(projectPath).mkdirs();
+	}
+	public void createPackage(){
+		new File(packagePath).mkdirs();
+	}
+	
 	private boolean isProjectFile(final File filee) {
 
 		findOutProjectNameAndPath();
@@ -134,6 +151,14 @@ public class SimpleJavaProject {
 
 	public final void setProjectPath(final String projPath) {
 		this.projectPath = projPath;
+	}
+
+	public String getClassPath() {
+		return classPath;
+	}
+
+	public void setClassPath(String classPath) {
+		this.classPath = classPath;
 	}
 
 }

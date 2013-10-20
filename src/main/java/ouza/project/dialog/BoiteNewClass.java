@@ -335,6 +335,7 @@ public class BoiteNewClass extends JDialog implements ActionListener {
 
 	private void createNewOngletAndClassFile(final File file, final String init) {
 		new EditorOngletCreator(init).addOnglet(classNameTF.getText());
+		
 		FileManager.saveFile(file.getAbsolutePath(), init);
 
 		final EditorOnglet editeur = (EditorOnglet) EditorOngletCreator
@@ -364,8 +365,7 @@ public class BoiteNewClass extends JDialog implements ActionListener {
 		final ProjectModeleSelector pMS = new ProjectModeleSelector(
 				projectNameTF.getText(), packageNameTF.getText(),
 				classNameTF.getText());
-		pMS.setProjectPath(CurrentFile.getProjectPath());
-
+	
 		editeur.setProjectModeleSelector(pMS);
 		CurrentFile.setpMS(pMS);
 	}

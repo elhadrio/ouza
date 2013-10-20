@@ -1,20 +1,19 @@
 package ouza.project.tools;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.FilenameFilter;
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import ouza.project.logger.OuZaLogger;
 import ouza.project.view.component.onglet.editor.EditorOngletCreator;
 import ouza.project.view.component.onglet.editor.OngletManager;
 
 public final class FileManager {
-	private static BufferedReader reader;
 
 	private FileManager() {
 		// empty constructor
@@ -67,22 +66,24 @@ public final class FileManager {
 	// read the content of a file
 	public static String lireFile(final String path) {
 		StringBuffer buf = null;
-
+		BufferedReader reader = null;
 		try {
 
 			reader = new BufferedReader(new FileReader(path));
-			String ligne;
+			String ligne = "";
 			buf = new StringBuffer();
-			ligne = reader.readLine();
-			while (ligne  != null) {
+
+			while ((ligne = reader.readLine()) != null) {
+
 				buf.append(ligne + (char) '\n');
-
 			}
-
+			reader.close();
 		} catch (FileNotFoundException e) {
 			OuZaLogger.LOGGER.error("specified file not found", e);
 		} catch (IOException e) {
 			OuZaLogger.LOGGER.error("IOException", e);
+		} finally {
+			IOUtil.closeQuietly(reader);
 		}
 
 		return buf.toString();
@@ -94,17 +95,20 @@ public final class FileManager {
 		OngletManager.saveNotice(EditorOngletCreator.getTabbedpane()
 				.getSelectedIndex());
 
+		FileWriter fw = null;
+		BufferedWriter bw = null;
 		try {
-			final PrintWriter print = new PrintWriter(new FileWriter(new File(
-					url)));
-			print.print(text);
-			print.close();
 
-		} catch (FileNotFoundException e1) {
-			OuZaLogger.LOGGER.error("specified file not found", e1);
-		} catch (IOException e1) {
-			OuZaLogger.LOGGER.error("specified file not found", e1);
+			fw = new FileWriter(new File(url).getAbsolutePath());
+			bw = new BufferedWriter(fw);
+			bw.write(text);
+			bw.close();
+		} catch (IOException e) {
+			OuZaLogger.LOGGER.error("specified file not found", e);
+		} finally {
+			IOUtil.closeQuietly(fw, bw);
 		}
+
 	}
 
 	// get file name from a path
